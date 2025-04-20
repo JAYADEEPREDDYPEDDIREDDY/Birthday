@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>❤️ Happy Birthday ❤️</title>
+  <style> 
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      width: 120%;
+    }
+
+    /* Ensure canvas stays in background */
+    canvas {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .background-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: -1;
+      width: 100%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .background-message h1 {
+      font-size: 15vw;
+      font-weight: 300;
+      margin: 0;
+      line-height: 1;
+      letter-spacing: 0.1em;
+      color: #fff;
+      font-family: 'Times New Roman', serif;
+      white-space: nowrap;
+      animation: fadeInOut 8s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.15; }
+    }
+
+    .birthday-message {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 1000;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .birthday-message h1 {
+      font-size: 3rem;
+      margin: 0;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffb3b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff6b6b, 0 0 40px #ff6b6b;
+      }
+      to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff6b6b, 0 0 40px #ff6b6b, 0 0 50px #ff6b6b;
+      }
+    }
+
+    .birthday-message p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #ffb3b3;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .container2 {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: 100vh;
+      box-sizing: border-box;
+      margin-left: 200px;
+    }
+    /* === Photo Section with Cards === */
+    .scroll-container {
+      width: 40%;
+      height: 120vh;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+      box-sizing: border-box;
+      margin-left: 100px;
+      background: transparent;
+    }
+
+    .photo-strip {
+      display: flex;
+      flex-direction: column;
+      
+      gap: 20px;
+    }
+    .photo-strip-scroll {
+        animation: scroll-vertical 30s linear infinite;
+    }
+    .photo-strip-scroll2 {
+        animation: scroll-vertical2 30s linear infinite;
+    }
+    .photo-card {
+      background-color: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      transition: all 0.5s ease;
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      width: 280px;
+      height: 400px;
+      backdrop-filter: blur(5px);
+    }
+
+   
+
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .photo-card:hover::before {
+      opacity: 1;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .card-caption {
+      padding: 15px;
+      font-size: 1rem;
+      color: #ccc;
+      background: rgba(0, 0, 0, 0.7);
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .photo-card:hover .card-caption {
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    .photo-card {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .photo-card:nth-child(1) { animation-delay: 0s; }
+    .photo-card:nth-child(2) { animation-delay: 0.5s; }
+    .photo-card:nth-child(3) { animation-delay: 1s; }
+    .photo-card:nth-child(4) { animation-delay: 1.5s; }
+    .photo-card:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes scroll-vertical {
+  0% { transform: translateY(20%); }
+  100% { transform: translateY(-100%); }
+}
+
+@keyframes scroll-vertical2 {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+
+
+    /* === Lyrics Section === */
+    .lyrics-container {
+      width: 50%;
+      height: 70vh;
+      padding: 40px 20px;
+      overflow: hidden;
+      position: relative;
+      background: transparent;
+      margin: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .lyrics {
+      font-size: 1.8rem;
+      line-height: 2.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      white-space: pre-line;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      width: 100%;
+      will-change: transform;
+      transform: translateY(100%);
+    }
+
+    .lyrics.start-scroll {
+      animation: scrollLyrics 45s linear forwards;
+    }
+
+    @keyframes scrollLyrics {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    /* Add audio player styling */
+    .audio-player {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .audio-player audio {
+      height: 30px;
+    }
+  </style>
+   <script>
+    const lyricsContainer = document.getElementById("lyrics");
+
+    // Start scrolling after 16 seconds
+    setTimeout(() => {
+      lyricsContainer.classList.add("start-scroll");
+    }, 16000); // 16,000 ms = 16 seconds
+  </script>
+</head>
+<body>
+
+
+
+  <div class="birthday-message">
+    <h1>Happy Birthday!</h1>
+    <p>Wishing you a day filled with love and joy ❤️</p>
+  </div>
+
+  <div class="container">
+    <div class="container">
+        <div class="scroll-container">
+          <div class="photo-strip photo-strip-scroll2" id="photoStrip">
+            <!-- JS will inject images here -->
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        const imageUrls = [
+          "https://picsum.photos/id/1015/500/300",
+          "https://picsum.photos/id/1016/500/300",
+          "https://picsum.photos/id/1018/500/300",
+          "https://picsum.photos/id/1020/500/300",
+          "https://picsum.photos/id/1021/500/300"
+        ];
+      
+        // Repeat to make it loop seamlessly
+        const repeatedImages = [...imageUrls, ...imageUrls];
+      
+        const photoStrip = document.getElementById("photoStrip");
+      
+        photoStrip.innerHTML = repeatedImages.map((url) => `
+          <div class="photo-card">
+            <img src="${url}" alt="img" />
+          </div>
+        `).join('');
+      </script>
+      
+    
+  </div>
+
+  <!-- Background Music -->
+  <div class="audio-player">
+    <audio id="background-music" >
+      <source src="./Anuvanuvuu.mp3" type="audio/mpeg">
+      <source src="Anuvanuvuu.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script>
+    // Audio playback handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const audio = document.getElementById('background-music');
+      
+      // Error handling for audio loading
+      audio.addEventListener('error', function(e) {
+        console.error('Error loading audio:', e);
+        // Try alternative source if first one fails
+        if (audio.getElementsByTagName('source')[0].src !== window.location.href + 'Anuvanuvuu.mp3') {
+          audio.src = 'Anuvanuvuu.mp3';
+        }
+      }, true);
+
+      // Success handling
+      audio.addEventListener('loadeddata', function() {
+        console.log('Audio loaded successfully');
+      });
+
+      // Play handling with user interaction
+      document.addEventListener('click', function() {
+        audio.play().catch(function(error) {
+          console.log('Playback failed:', error);
+        });
+      }, { once: true });
+
+      // Try to play automatically
+      audio.play().catch(function(error) {
+        console.log('Auto-play prevented:', error);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+  const audio = document.getElementById('background-music');
+  
+  // Ensure the audio starts from the beginning after refresh
+  audio.currentTime = 0; 
+  
+  // Try to play automatically when the page loads
+  audio.play().catch(function(error) {
+    console.log('Auto-play prevented:', error);
+  });
+  
+  // Error handling for audio loading
+  audio.addEventListener('error', function(e) {
+    console.error('Error loading audio:', e);
+    // Try alternative source if the first one fails
+    if (audio.getElementsByTagName('source')[0].src !== window.location.href + 'Anuvanuvuu.mp3') {
+      audio.src = 'Anuvanuvuu.mp3';
+    }
+  }, true);
+
+  // Success handling
+  audio.addEventListener('loadeddata', function() {
+    console.log('Audio loaded successfully');
+  });
+});
+
+  </script>
+  <script src="heart.js"></script>
+  <div class="container2">
+    <!-- Photos Scroll Left with Cards -->
+    <div class="scroll-container">
+      <div class="photo-strip photo-strip-scroll">
+        <!-- Repeat these for looping -->
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1015/500/300" alt="img" />
+         
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1016/500/300" alt="img" />
+         
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1018/500/300" alt="img" />
+        
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1020/500/300" alt="img" />
+          
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1021/500/300" alt="img" />
+          
+        </div>
+        <!-- Repeat again for seamless loop -->
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1015/500/300" alt="img" />
+          
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/id/1016/500/300" alt="img" />
+          
+        </div>
+      </div>
+    </div>
+</body>
+</html>
