@@ -150,7 +150,62 @@
       backdrop-filter: blur(5px);
     }
 
-   
+    @media (max-width: 768px) {
+  .container,
+  .container2 {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+  }
+  .photo-strip-scroll {
+    margin-right: 20px;
+    }
+  .scroll-container {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  .photo-card {
+    width: 70%;
+    height: 200px;
+    max-height: 380px;
+    
+  }
+
+  .photo-card img {
+    height: auto;
+  }
+
+  .lyrics-container {
+    width: 100%;
+    height: auto;
+    padding: 20px 10px;
+    margin: 10px 0;
+  }
+
+  .lyrics {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .birthday-message h1 {
+    font-size: 2.2rem;
+  }
+
+  .birthday-message p {
+    font-size: 1rem;
+  }
+
+  .audio-player {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+  }
+}
+
 
     .photo-card::before {
       content: '';
